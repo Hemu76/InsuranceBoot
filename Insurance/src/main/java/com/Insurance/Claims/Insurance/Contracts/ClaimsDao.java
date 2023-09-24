@@ -16,4 +16,9 @@ public interface ClaimsDao {
 
 	Claim getClaimById(int clamId);
 
+	ArrayList<Claim> viewAllClaims();
+
+	Claim viewClaimById(int clamId);
+int editClaimById(int clamId, String clamRemarks, String clamStatus);
+
 }

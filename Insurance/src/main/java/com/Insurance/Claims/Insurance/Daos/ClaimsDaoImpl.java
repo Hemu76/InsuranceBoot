@@ -46,6 +46,28 @@ public class ClaimsDaoImpl implements ClaimsDao {
 		// TODO Auto-generated method stub
 		return jdbcTemplate.queryForObject(SQL_GET_CLAIM_BY_ID,new Object[] {clamId},new ClaimsMapper());
 	}
+	
+	
+	
+	private String SQL_VIEW_CLAIMS = "select * from  Claims where clam_status is null";
+	private String SQL_VIEW_CLAIM_BY_ID = "select * from  Claims where clam_id=?";
+	private String SQL_EDIT_CLAIM_BY_ID = "update claims set clam_remarks=?, clam_status=? where clam_id=?";
+	@Override
+	public ArrayList<Claim> viewAllClaims() {
+		// TODO Auto-generated method stub
+		return (ArrayList<Claim>) jdbcTemplate.query(SQL_VIEW_CLAIMS,new ClaimsMapper());
+	}
+	@Override
+	public Claim viewClaimById(int clamId) {
+		// TODO Auto-generated method stub
+		return jdbcTemplate.queryForObject(SQL_VIEW_CLAIM_BY_ID,new Object[] {clamId},new ClaimsMapper());
+	}
+	@Override
+	public int editClaimById(int clamId, String clamRemarks, String clamStatus) {
+		return jdbcTemplate.update(SQL_EDIT_CLAIM_BY_ID,clamRemarks,clamStatus,clamId);
 
+		
+	}
+		
 
 }

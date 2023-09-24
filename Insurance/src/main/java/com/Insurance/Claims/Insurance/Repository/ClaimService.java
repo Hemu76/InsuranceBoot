@@ -40,6 +40,28 @@ public class ClaimService implements IService {
 		return cdao.getClaimById(clamId);
 	}
 
+	//Insurance------------
+
+	@Override
+	public ArrayList<Claim> viewAllClaims() {
+		// TODO Auto-generated method stub
+		return (ArrayList<Claim>)cdao.viewAllClaims();
+	}
+
+
+	@Override
+	public Claim viewClaimById(int clamId) {
+		// TODO Auto-generated method stub
+		return cdao.viewClaimById(clamId);
+	}
+
+
+	@Override
+	public int editClaimById(int clamId, String clamRemarks, String clamStatus) {
+		// TODO Auto-generated method stub
+		return cdao.editClaimById(clamId,clamRemarks,clamStatus);
+	}
+
 
 
 	

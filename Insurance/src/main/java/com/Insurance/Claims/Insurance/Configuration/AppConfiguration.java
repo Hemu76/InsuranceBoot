@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
-@ComponentScan("com.Insurance.Claims.Insurance.Configuration")
+@ComponentScan("com.Insurance.Claims.Insurance")
 public class AppConfiguration {
 	@Bean
 	DataSource dataSource() {
 		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-		driverManagerDataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
+		driverManagerDataSource.setUrl("jdbc:postgresql://localhost:5434/postgres");
 		driverManagerDataSource.setUsername("postgres");
 		driverManagerDataSource.setPassword("1234");
 		driverManagerDataSource.setDriverClassName("org.postgresql.Driver");

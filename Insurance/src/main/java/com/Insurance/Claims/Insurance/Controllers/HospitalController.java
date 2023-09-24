@@ -42,7 +42,7 @@ public class HospitalController {
         ArrayList<Claim> li = (ArrayList<Claim>) irip.getAllClaims();
         System.out.println(li.size());
         model.addAttribute("claims", li);
-        return "claims";
+        return "Claims";
     }
     @PostMapping(value = "/viewClaim")
     public String getClaimById(Model model, @RequestParam("clamId") int clamId) {
@@ -56,7 +56,7 @@ public class HospitalController {
         ArrayList<Claim> li = (ArrayList<Claim>) irip.getFilteredClaims(status);
         System.out.println(li.size());
         model.addAttribute("claims", li);
-        return "claims";
+        return "Claims";
     }
     @RequestMapping(value = "/excel", method = RequestMethod.POST)
 	public void downloadExcel(@RequestParam("selectedStatus") String status, HttpServletResponse response) throws IOException {
@@ -117,5 +117,25 @@ public class HospitalController {
 		workbook.write(outputStream);
 		outputStream.close();
 	}
-
+    
+    //Insurance----------------------------------------------------------------------------
+    @GetMapping(value="/viewClaims")
+    public String viewAllClaims(Model model) {
+        ArrayList<Claim> li = (ArrayList<Claim>) irip.viewAllClaims();
+        System.out.println(li.size());
+        model.addAttribute("claims", li);
+        return "InsuClaims";
+    } 
+    @PostMapping(value = "/viewInsuClaim")
+    public String viewClaimById(Model model, @RequestParam("clamId") int clamId) {
+        Claim cl = irip.viewClaimById(clamId);
+        model.addAttribute("claim", cl);
+        return "viewInsuclaim";
+    }
+    @PostMapping(value = "/processClaim")
+    public String editClaimById(Model model, @RequestParam("clamId") int clamId,@RequestParam("clamRemarks") String clamRemarks,@RequestParam("clamStatus") String clamStatus) {
+        int n = irip.editClaimById(clamId,clamRemarks,clamStatus);
+    	System.out.println(clamId+" "+clamRemarks+" "+clamStatus);
+        return "viewInsuclaim";
+    }
 }
