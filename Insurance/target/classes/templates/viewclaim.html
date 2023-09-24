@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Claims Details</title>
+</head>
+<body>
+    <h1>Claims Details</h1>
+
+    <div>
+        <strong>Claim ID:</strong>
+        <span th:text="${claim.clamId}"></span>
+    </div>
+    
+    <div>
+        <strong>Claim Source:</strong>
+        <span th:text="${claim.clamSource}"></span>
+    </div>
+    
+    <div>
+        <strong>Claim Type:</strong>
+        <span th:text="${claim.clamType}"></span>
+    </div>
+    
+    <div>
+        <strong>Claim Date:</strong>
+        <span th:text="${claim.clamDate}"></span>
+    </div>
+    
+    <div>
+        <strong>Claim Amount Requested:</strong>
+        <span th:text="${claim.clamAmountRequested}"></span>
+    </div>
+    
+    <div>
+        <strong>Claim IPLC ID:</strong>
+        <span th:text="${claim.clamIplcId}"></span>
+    </div>
+    
+    <div>
+        <strong>Claim Processed Amount:</strong>
+        <span th:text="${claim.clamProcessedAmount}"></span>
+    </div>
+    
+    <div>
+        <strong>Claim Processed Date:</strong>
+        <span th:text="${claim.clamProcessedDate}"></span>
+    </div>
+    
+    <div>
+        <strong>Claim Processed By:</strong>
+        <span th:text="${claim.clamProcessedBy}"></span>
+    </div>
+    
+    <div>
+        <strong>Claim Remarks:</strong>
+        <span th:text="${claim.clamRemarks}"></span>
+    </div>
+    
+    <div>
+        <strong>Claim Status:</strong>
+        <span th:text="${claim.clamStatus}"></span>
+    </div>
+</body>
+</html>
