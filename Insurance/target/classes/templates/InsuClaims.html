@@ -72,6 +72,10 @@
         <input type="hidden" name="clamId" th:value="${emp.clamId}">
         <button type="submit">View</button>
     </form>
+     <form action="viewdocs" method="post">
+        <input type="hidden" name="clamId" th:value="${emp.clamId}">
+        <button type="submit">ViewDocs</button>
+    </form>
 </td>
 		</tr>
 		<tr th:if="${claims.isEmpty()}">

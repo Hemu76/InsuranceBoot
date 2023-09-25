@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload Form</title>
+</head>
+<body>
+    <h1>File Upload Form</h1>
+    <form action="/claimbills" method="POST" enctype="multipart/form-data" id="fileUploadForm">
+        <div id="fileInputs">
+        	 Policy Id:<input type="text" name="clamIplcId"><br></br>
+            <label for="file">Select a File:</label>
+            <input type="file" name="file[]" accept=".pdf, .doc, .docx, .txt">
+        </div>
+        <br>
+        <button type="button" id="addFileInput">Add New File</button>
+        <br><br>
+        <input type="submit" value="Upload Files">
+    </form>
+
+    <script>
+        document.getElementById('addFileInput').addEventListener('click', function () {
+            const fileInputs = document.getElementById('fileInputs');
+            const newFileInput = document.createElement('div');
+            newFileInput.innerHTML = `
+                <label for="file">Select a File:</label>
+                <input type="file" name="file[]" accept=".pdf, .doc, .docx, .txt">
+            `;
+            fileInputs.appendChild(newFileInput);
+        });
+    </script>
+</body>
+</html>

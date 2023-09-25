@@ -1,14 +1,11 @@
 package com.Insurance.Claims.Insurance.Contracts;
 
-import java.awt.print.Book;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.Insurance.Claims.Insurance.Models.Claim;
-
+import com.Insurance.Claims.Insurance.Models.ClaimBills;
 
 public interface ClaimsDao {
-
 
 	ArrayList<Claim> getAllClaims();
 
@@ -19,6 +16,19 @@ public interface ClaimsDao {
 	ArrayList<Claim> viewAllClaims();
 
 	Claim viewClaimById(int clamId);
-int editClaimById(int clamId, String clamRemarks, String clamStatus);
+
+	int editClaimById(int clamId, String clamRemarks, String clamStatus);
+
+	void addClaim(ClaimBills claim);
+
+	void setClaim(int i);
+
+	Claim getClaimByid(int clamIplcId);
+
+	void setDocs(String f, String filePath, int cid);
+
+	ArrayList<ClaimBills> getDocs(int clamId);
+
+	ClaimBills getDocBills(int billIndex);
 
 }

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Claims Details</title>
+</head>
+<body>
+    <h1>Claims Details</h1>
+
+    <div>
+        <strong>Claim ID:</strong>
+        <span th:text="${claim.claimId}"></span>
+    </div>
+
+    <div>
+        <strong>clbl_billindex:</strong>
+        <span th:text="${claim.billIndex}"></span>
+    </div>
+
+    <div>
+        <strong>documentTitle:</strong>
+        <span th:text="${claim.documentTitle}"></span>
+    </div>
+
+    <div>
+        <strong>documentPath:</strong>
+        <span th:text="${claim.documentPath}"></span>
+    </div>
+
+    <div>
+        <strong>claimAmount:</strong>
+        <span th:text="${claim.claimAmount}"></span>
+    </div>
+
+    <div>
+        <strong>processedAmount:</strong>
+        <span id="processedAmountValue" th:text="${claim.processedAmount}"></span>
+        <input type="text" id="processedAmountInput" style="display: none;" />
+        <button onclick="editField('processedAmount')">Edit</button>
+        <button onclick="saveField('processedAmount')">Save</button>
+    </div>
+
+    <div>
+        <strong>processedDate:</strong>
+        <span id="processedDateValue" th:text="${claim.processedDate}"></span>
+        <input type="text" id="processedDateInput" style="display: none;" />
+        <button onclick="editField('processedDate')">Edit</button>
+        <button onclick="saveField('processedDate')">Save</button>
+    </div>
+
+    <div>
+        <strong>processedBy:</strong>
+        <span id="processedByValue" th:text="${claim.processedBy}"></span>
+        <input type="text" id="processedByInput" style="display: none;" />
+        <button onclick="editField('processedBy')">Edit</button>
+        <button onclick="saveField('processedBy')">Save</button>
+    </div>
+
+    <div>
+        <strong>Claim Remarks:</strong>
+        <span th:text="${claim.remarks}" id="remarksValue"></span>
+        <input type="text" id="remarksInput" style="display: none;" />
+    </div>
+
+    <div>
+        <strong>Claim Status:</strong>
+        <span th:text="${claim.status}" id="statusValue"></span>
+        <input type="text" id="statusInput" style="display: none;" />
+    </div>
+
+    <button onclick="editStatus()">Edit</button>
+    <form action="processClaim" method="POST">
+        <input type="hidden" id="clbl_billindex" name="clbl_billindex" th:value="${claim.billIndex}" />
+        <input type="hidden" id="clamRemarks" name="clamRemarks" value=""/>
+        <input type="hidden" id="clamStatus" name="clamStatus" value=""/>
+        <input type="submit" onclick="doo()" value="Save">
+    </form>
+
+    <script>
+        function editField(fieldName) {
+            const valueSpan = document.getElementById(fieldName + 'Value');
+            const inputField = document.getElementById(fieldName + 'Input');
+
+            inputField.value = valueSpan.innerText;
+            valueSpan.style.display = "none";
+            inputField.style.display = "inline-block";
+        }
+
+        function saveField(fieldName) {
+            const valueSpan = document.getElementById(fieldName + 'Value');
+            const inputField = document.getElementById(fieldName + 'Input');
+
+            valueSpan.innerText = inputField.value;
+            inputField.style.display = "none";
+            valueSpan.style.display = "inline-block";
+        }
+
+        function editStatus() {
+            const statusSpan = document.getElementById("statusValue");
+            const statusInput = document.getElementById("statusInput");
+
+            statusInput.value = statusSpan.innerText;
+            statusSpan.style.display = "none";
+            statusInput.style.display = "inline-block";
+            const remarksSpan = document.getElementById("remarksValue");
+            const remarksInput = document.getElementById("remarksInput");
+
+            remarksInput.value = remarksSpan.innerText;
+            remarksSpan.style.display = "none";
+            remarksInput.style.display = "inline-block";
+        }
+
+        function doo() {
+            const statusSpan = document.getElementById("statusInput").value;
+            const remarksSpan = document.getElementById("remarksInput").value;
+            var rem = document.getElementById("clamRemarks");
+            var stat = document.getElementById("clamStatus");
+            stat.value = statusSpan;
+            rem.value = remarksSpan;
+        }
+    </script>
+</body>
+</html>
