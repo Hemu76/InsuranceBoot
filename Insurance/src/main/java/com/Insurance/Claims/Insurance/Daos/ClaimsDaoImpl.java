@@ -25,8 +25,8 @@ public class ClaimsDaoImpl implements ClaimsDao {
 	private String SQL_GET_CLAIMS = "select * from  _Claims";
 	private String SQL_GET_FILTERED_CLAIMS = "select * from  _Claims where clam_status=?";
 	private String SQL_GET_CLAIM_BY_ID = "select * from  _Claims where clam_id=?";
-	private String SQL_INSERT_CLAIM = "insert into _Claims(clam_source,clam_type,clam_date,clam_iplc_id) values(?,?,?,?)";
-	private String SQL_INSERT_CLAIMBill = "insert into ClaimBills(clam_id,clbl_document_title,clbl_document_path) values(?,?,?)";
+	private String SQL_INSERT_CLAIM = "insert into _Claims(clam_source,clam_type,clam_date,clam_iplc_id,clam_amount_requested) values(?,?,?,?,?)";
+	private String SQL_INSERT_CLAIMBill = "insert into ClaimBills(clam_id,clbl_document_title,clbl_document_path,clbl_claim_amount) values(?,?,?,?)";
 
 	@Autowired
 	public ClaimsDaoImpl(DataSource dataSource) {
@@ -69,9 +69,9 @@ public class ClaimsDaoImpl implements ClaimsDao {
 	}
 
 	@Override
-	public void setDocs(String f, String filePath, int cid) {
+	public void setDocs(String f, String filePath, int cid, double amt) {
 		System.out.println("brooo");
-		jdbcTemplate.update(SQL_INSERT_CLAIMBill, cid, f, filePath);
+		jdbcTemplate.update(SQL_INSERT_CLAIMBill, cid, f, filePath, amt);
 	}
 
 	@Override
@@ -107,13 +107,13 @@ public class ClaimsDaoImpl implements ClaimsDao {
 	}
 
 	@Override
-	public void setClaim(int i) {
+	public void setClaim(int i, double d) {
 		try {
 			String dateOfBirth = "3003-03-30";
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			java.util.Date utilDate = dateFormat.parse(dateOfBirth);
 			Date date = new Date(utilDate.getTime());
-			jdbcTemplate.update(SQL_INSERT_CLAIM, "HSPT", "DRCT", date, i);
+			jdbcTemplate.update(SQL_INSERT_CLAIM, "HSPT", "DRCT", date, i, d);
 		} catch (Exception e) {
 
 			e.printStackTrace();

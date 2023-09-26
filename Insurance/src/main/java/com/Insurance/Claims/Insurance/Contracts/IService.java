@@ -19,11 +19,11 @@ public interface IService {
 
 	int editClaimById(int clamId, String clamRemarks, String clamStatus);
 
-	void addClaim(int i);
+	void addClaim(int i, double d);
 
 	Claim getClaimByid(int clamIplcId);
 
-	void addClaimBills(String f, String filePath, int cid);
+	void addClaimBills(String f, String filePath, int cid, double amt);
 
 	ArrayList<ClaimBills> viewClaimDocsById(int clamId);
 

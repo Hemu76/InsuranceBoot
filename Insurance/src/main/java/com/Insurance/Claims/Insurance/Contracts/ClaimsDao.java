@@ -21,11 +21,11 @@ public interface ClaimsDao {
 
 	void addClaim(ClaimBills claim);
 
-	void setClaim(int i);
+	void setClaim(int i, double d);
 
 	Claim getClaimByid(int clamIplcId);
 
-	void setDocs(String f, String filePath, int cid);
+	void setDocs(String f, String filePath, int cid, double amt);
 
 	ArrayList<ClaimBills> getDocs(int clamId);
 

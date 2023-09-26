@@ -122,18 +122,26 @@ public class HospitalController {
 	}
 
 	@RequestMapping(value = "/claimbills", method = RequestMethod.POST)
-	public String claimData(@RequestParam("file[]") MultipartFile[] files, Claim claim, Model model) {
+	public String claimData(@RequestParam("file[]") MultipartFile[] files, @RequestParam("claimamt") String[] amt,
+			Claim claim, Model model) {
+		double sum = 0;
+		for (String a : amt) {
+			sum += Double.parseDouble(a);
+		}
 		// Specify the target directory where you want to store the files
-		irip.addClaim(claim.getClamIplcId());
+		irip.addClaim(claim.getClamIplcId(), sum);
 		Claim clm_id = irip.getClaimByid(claim.getClamIplcId());
 		int cid = clm_id.getClamId();
 		String uploadDir = "src/main/resources/static/file";
 
+		int i = 0;
 		try {
+
 			// Create the target directory if it doesn't exist
 			Files.createDirectories(Paths.get(uploadDir));
 
 			for (MultipartFile file : files) {
+
 				// Get the original file name
 				String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
@@ -145,7 +153,8 @@ public class HospitalController {
 
 				String fullPath = targetLocation.toAbsolutePath().toString();
 
-				irip.addClaimBills(file.getOriginalFilename(), fullPath, cid);
+				irip.addClaimBills(file.getOriginalFilename(), fullPath, cid, Double.parseDouble(amt[i]));
+				i++;
 
 			}
 

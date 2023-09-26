@@ -35,8 +35,8 @@ public class ClaimService implements IService {
 	}
 
 	@Override
-	public void addClaim(int i) {
-		cdao.setClaim(i);
+	public void addClaim(int i, double d) {
+		cdao.setClaim(i, d);
 
 	}
 
@@ -47,9 +47,9 @@ public class ClaimService implements IService {
 	}
 
 	@Override
-	public void addClaimBills(String f, String filePath, int cid) {
+	public void addClaimBills(String f, String filePath, int cid, double amt) {
 		// TODO Auto-generated method stub
-		cdao.setDocs(f, filePath, cid);
+		cdao.setDocs(f, filePath, cid, amt);
 	}
 
 	@Override
