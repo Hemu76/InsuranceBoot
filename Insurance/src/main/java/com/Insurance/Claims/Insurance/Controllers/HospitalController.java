@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -13,6 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -120,32 +122,38 @@ public class HospitalController {
 	}
 
 	@RequestMapping(value = "/claimbills", method = RequestMethod.POST)
-	public String claimData(@RequestParam("file[]") MultipartFile file[], Claim claim, Model model) {
+	public String claimData(@RequestParam("file[]") MultipartFile[] files, Claim claim, Model model) {
+		// Specify the target directory where you want to store the files
 		irip.addClaim(claim.getClamIplcId());
 		Claim clm_id = irip.getClaimByid(claim.getClamIplcId());
 		int cid = clm_id.getClamId();
-		Path directoryPath = Paths.get("C:\\Users\\hemusai.v\\Desktop\\Hemu");
+		String uploadDir = "src/main/resources/static/file";
+
 		try {
-			Files.createDirectories(directoryPath);
-		} catch (IOException e) {
+			// Create the target directory if it doesn't exist
+			Files.createDirectories(Paths.get(uploadDir));
 
-			e.printStackTrace();
-		}
-		for (MultipartFile f : file) {
-			Path directoryPath1 = Paths.get("C:\\Users\\hemusai.v\\Desktop\\Hemu");
-			try {
-				Files.createDirectories(directoryPath1); // Create the directory if it doesn't exist
-				Path filePath = directoryPath1.resolve(f.getOriginalFilename());
-				byte[] bytes = f.getBytes();
-				Files.write(filePath, bytes);
+			for (MultipartFile file : files) {
+				// Get the original file name
+				String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
-				String fileAbsolutePath = filePath.toString();
-				irip.addClaimBills(f.getOriginalFilename(), fileAbsolutePath, cid);
-			} catch (IOException e) {
-				e.printStackTrace();
-				model.addAttribute("message", "Failed to save the file.");
-				return "index";
+				// Create the target file path within the directory
+				Path targetLocation = Paths.get(uploadDir).resolve(fileName);
+
+				// Copy the file to the target location
+				Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+				String fullPath = targetLocation.toAbsolutePath().toString();
+
+				irip.addClaimBills(file.getOriginalFilename(), fullPath, cid);
+
 			}
+
+			// After successfully storing all files, you can redirect to a success page or return a response accordingly
+			return "SETCLAIMS";
+		} catch (IOException ex) {
+			ex.printStackTrace();
+
 		}
 
 		return "SETCLAIMS";

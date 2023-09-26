@@ -17,8 +17,7 @@ public class ClaimApplication {
 	private String disease;
 	private String diagnosis;
 	private String treatment;
-	private double roomCharges;
-	private double medicineBill;
+	private Double billamt;
 
 	public int getPatientId() {
 		return policyIdId;
@@ -60,12 +59,44 @@ public class ClaimApplication {
 		return treatment;
 	}
 
-	public double getRoomCharges() {
-		return roomCharges;
+	public int getPolicyIdId() {
+		return policyIdId;
 	}
 
-	public double getMedicineBill() {
-		return medicineBill;
+	public void setPolicyIdId(int policyIdId) {
+		this.policyIdId = policyIdId;
+	}
+
+	public int getMemberIndex() {
+		return memberIndex;
+	}
+
+	public void setMemberIndex(int memberIndex) {
+		this.memberIndex = memberIndex;
+	}
+
+	public String getRelation() {
+		return relation;
+	}
+
+	public void setRelation(String relation) {
+		this.relation = relation;
+	}
+
+	public Double getBillamt() {
+		return billamt;
+	}
+
+	public void setBillamt(Double billamt) {
+		this.billamt = billamt;
+	}
+
+	public void setJoinedDate(Date joinedDate) {
+		this.joinedDate = joinedDate;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
 	public void setPatientId(int patientId) {
@@ -122,14 +153,6 @@ public class ClaimApplication {
 
 	public void setTreatment(String treatment) {
 		this.treatment = treatment;
-	}
-
-	public void setRoomCharges(double roomCharges) {
-		this.roomCharges = roomCharges;
-	}
-
-	public void setMedicineBill(double medicineBill) {
-		this.medicineBill = medicineBill;
 	}
 
 }

@@ -39,6 +39,7 @@ public class ClaimsDaoImpl implements ClaimsDao {
 		return (ArrayList<Claim>) jdbcTemplate.query(SQL_GET_CLAIMS, new ClaimsMapper());
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ArrayList<Claim> getFilteredClaims(String status) {
 		// TODO Auto-generated method stub
@@ -92,6 +93,7 @@ public class ClaimsDaoImpl implements ClaimsDao {
 		return (ArrayList<Claim>) jdbcTemplate.query(SQL_VIEW_CLAIMS, new ClaimsMapper());
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Claim viewClaimById(int clamId) {
 		// TODO Auto-generated method stub

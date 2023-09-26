@@ -46,16 +46,19 @@ main {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Added margin-bottom for input fields */
 input[type="text"],
 input[type="email"],
 input[type="tel"],
 input[type="number"],
+input[type="date"],
 select,
 textarea,
 input[type="file"] {
     width: 100%;
     padding: 10px;
     margin-right: 10px;
+    margin-bottom: 10px; /* Added margin-bottom */
     border: 1px solid #ccc;
     border-radius: 4px;
 }
@@ -107,7 +110,8 @@ footer {
 
 .document-row input[type="text"],
 .document-row input[type="number"],
-.document-row input[type="file"] {
+.document-row input[type="file"],
+.document-row input[type="date"] {
     margin-right: 10px;
 }
 
@@ -139,93 +143,64 @@ footer {
 </header>
 
 <main>
-    <form id="claimForm">
-        <section id="personalInfo" class="form-section">
-            <h2>Personal Information</h2>
-            <label for="fullName">Full Name:</label>
-            <input type="text" id="fullName" name="fullName" required>
+    <form action="/claimbills" id="claimForm" method="post" enctype="multipart/form-data">
+       <section id="personalInfo" class="form-section">
+    <h2>Patient Information</h2>
+    <label for="policyIdId">Policy Id:</label>
+    <input type="text" id="policyIdId" name="policyIdId" required>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+    <label for="memberIndex">Member Index:</label>
+    <input type="text" id="memberIndex" name="memberIndex" required>
 
-            <label for="phone">Phone Number:</label>
-            <input type="tel" id="phone" name="phone" required>
+    <label for="relation">Relation:</label>
+    <input type="text" id="relation" name="relation" required>
 
-            <label for="dateOfBirth">Date of Birth:</label>
-            <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+    <label for="joinedDate">Joined Date:</label>
+    <input type="date" id="joinedDate" name="joinedDate" required>
+    
+    <label for="patientName">Patient Name:</label>
+    <input type="text" id="patientName" name="patientName" required>
+    
+    <label for="dateOfBirth">DateOfBirth:</label>
+    <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+    
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender" required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+    </select>
+    
+    <label for="contactNumber">Contact Number:</label>
+    <input type="tel" id="contactNumber" name="contactNumber" required>
 
-            <label for="gender">Gender:</label>
-            <select id="gender" name="gender" required>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-            </select>
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required>
 
-            <label for="contactNumber">Contact Number:</label>
-            <input type="tel" id="contactNumber" name="contactNumber" required>
+    <label for="disease">Disease:</label>
+    <input type="text" id="disease" name="disease" required>
+    
+    <label for="diagnosis">Diagnosis:</label>
+    <input type="text" id="diagnosis" name="diagnosis" required>
+    
+    <label for="treatment">Treatment:</label>
+    <input type="text" id="treatment" name="treatment" required>
+    
+    <label for="billamt">Bill Amt:</label>
+    <input type="text" id="billamt" name="billamt" required>
+</section>
 
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address" required>
-        </section>
 
         <section id="claimDetails" class="form-section">
             <h2>Claim Details</h2>
             <label for="policyNumber">Policy Number:</label>
-            <input type="text" id="policyNumber" name="policyNumber" required>
-
-            <label for="claimType">Claim Type:</label>
-            <select id="claimType" name="claimType" required>
-                <option value="auto">Auto Insurance</option>
-                <option value="health">Health Insurance</option>
-                <option value="home">Home Insurance</option>
-                <option value="life">Life Insurance</option>
-            </select>
+            <input type="text" id="policyNumber" name="clamIplcId" required>
 
             <label for="claimDescription">Claim Description:</label>
             <textarea id="claimDescription" name="claimDescription" rows="4" required></textarea>
 
-            <label for="billAmount">Bill Amount:</label>
+            <label for="billAmount">Claim Amount:</label>
             <input type="number" id="billAmount" name="billAmount" required>
-        </section>
-
-        <section id="additionalInfo" class="form-section">
-            <h2>Additional Information</h2>
-            
-            <!-- Additional input fields -->
-            <div class="input-group">
-                <label for="joinedDate">Joined Date:</label>
-                <input type="date" id="joinedDate" name="joinedDate" required>
-            </div>
-            
-            <div class="input-group">
-                <label for="disease">Disease:</label>
-                <input type="text" id="disease" name="disease" required>
-            </div>
-            
-            <div class="input-group">
-                <label for="diagnosis">Diagnosis:</label>
-                <input type="text" id="diagnosis" name="diagnosis" required>
-            </div>
-            
-            <div class="input-group">
-                <label for="treatment">Treatment:</label>
-                <input type="text" id="treatment" name="treatment" required>
-            </div>
-            
-            <div class="input-group">
-                <label for="roomCharges">Room Charges:</label>
-                <input type="number" id="roomCharges" name="roomCharges" required>
-            </div>
-            
-            <div class="input-group">
-                <label for="medicineBill">Medicine Bill:</label>
-                <input type="number" id="medicineBill" name="medicineBill" required>
-            </div>
-            
-            <div class="input-group">
-                <label for="documentPath">Document Path:</label>
-                <input type="text" id="documentPath" name="documentPath" required>
-            </div>
         </section>
 
         <section id="documentUpload" class="form-section">
@@ -261,19 +236,20 @@ footer {
 
             const documentNameInput = document.createElement("input");
             documentNameInput.type = "text";
-            documentNameInput.name = "documentName";
+            documentNameInput.name = "documentTitle";
             documentNameInput.placeholder = "Document Name";
             documentNameInput.required = true;
 
             const documentAmountInput = document.createElement("input");
             documentAmountInput.type = "number";
-            documentAmountInput.name = "documentAmount";
+            documentAmountInput.name = "claimAmount";
             documentAmountInput.placeholder = "Amount";
             documentAmountInput.required = true;
 
             const documentFileInput = document.createElement("input");
             documentFileInput.type = "file";
-            documentFileInput.name = "documentFile";
+            documentFileInput.name = "file[]";
+            
             documentFileInput.accept = ".pdf, .jpg, .png";
             documentFileInput.required = true;
 
