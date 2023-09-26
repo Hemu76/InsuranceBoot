@@ -52,8 +52,7 @@ tr:nth-child(even) {
 			<tr>
 				<td th:text="${claim.billIndex}"></td>
 				<td th:text="${claim.documentTitle}"></td>
-				<td><a th:href="${claim.documentPath}"
-					th:text="${claim.documentPath}" target="_blank"></a></td>
+				<td><embed type="text/plain" th:text="${claim.documentPath}" src="src/main/resources/static/file/Comaparable based on passcount.txt" width="300" height="200"></td>
 				<td th:text="${claim.claimAmount}"></td>
 				<td><span id="processedAmountValue"
 					th:text="${claim.processedAmount}"></span> <input type="text"

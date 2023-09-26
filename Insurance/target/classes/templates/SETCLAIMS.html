@@ -3,32 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Upload Form</title>
+    <title>Insurance Claim Form</title>
+    <link rel="stylesheet" href="styles.css">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+header {
+    background-color: #007acc;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1, h2 {
+    color: #007acc;
+}
+
+#companyLogo {
+    width: 80px;
+    height: auto;
+    margin-right: 10px;
+}
+
+#companyName {
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea,
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button[type="submit"] {
+    background-color: #007acc;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+footer {
+    background-color: #007acc;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+.form-section {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form-section h2 {
+    color: #007acc;
+    width: 100%;
+}
+
+.form-section label {
+    display: inline-block;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.form-section input[type="file"] {
+    margin-top: 10px;
+}
+
+.document-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.document-row input[type="text"],
+.document-row input[type="number"],
+.document-row input[type="file"] {
+    margin-right: 10px;
+}
+
+.remove-document-button {
+    background-color: #f00;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.input-group label {
+    width: 150px;
+    font-weight: bold;
+}
+</style>
 </head>
 <body>
-    <h1>File Upload Form</h1>
-    <form action="/claimbills" method="POST" enctype="multipart/form-data" id="fileUploadForm">
-        <div id="fileInputs">
-        	 Policy Id:<input type="text" name="clamIplcId"><br></br>
-            <label for="file">Select a File:</label>
-            <input type="file" name="file[]" accept=".pdf, .doc, .docx, .txt">
-        </div>
-        <br>
-        <button type="button" id="addFileInput">Add New File</button>
-        <br><br>
-        <input type="submit" value="Upload Files">
-    </form>
+<header>
+    <img src="https://cdn.imgbin.com/22/2/6/imgbin-cigna-logo-insurance-company-health-care-az-breaking-news-alerts-wLCdsy2cvEp6htJxr1Pna0qXL.jpg" alt="Company Logo" id="companyLogo">
+    <div id="companyName">FUTURE SAFE</div>
+</header>
 
-    <script>
-        document.getElementById('addFileInput').addEventListener('click', function () {
-            const fileInputs = document.getElementById('fileInputs');
-            const newFileInput = document.createElement('div');
-            newFileInput.innerHTML = `
-                <label for="file">Select a File:</label>
-                <input type="file" name="file[]" accept=".pdf, .doc, .docx, .txt">
-            `;
-            fileInputs.appendChild(newFileInput);
+<main>
+    <form id="claimForm">
+        <section id="personalInfo" class="form-section">
+            <h2>Personal Information</h2>
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" name="fullName" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="dateOfBirth">Date of Birth:</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="contactNumber">Contact Number:</label>
+            <input type="tel" id="contactNumber" name="contactNumber" required>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
+        </section>
+
+        <section id="claimDetails" class="form-section">
+            <h2>Claim Details</h2>
+            <label for="policyNumber">Policy Number:</label>
+            <input type="text" id="policyNumber" name="policyNumber" required>
+
+            <label for="claimType">Claim Type:</label>
+            <select id="claimType" name="claimType" required>
+                <option value="auto">Auto Insurance</option>
+                <option value="health">Health Insurance</option>
+                <option value="home">Home Insurance</option>
+                <option value="life">Life Insurance</option>
+            </select>
+
+            <label for="claimDescription">Claim Description:</label>
+            <textarea id="claimDescription" name="claimDescription" rows="4" required></textarea>
+
+            <label for="billAmount">Bill Amount:</label>
+            <input type="number" id="billAmount" name="billAmount" required>
+        </section>
+
+        <section id="additionalInfo" class="form-section">
+            <h2>Additional Information</h2>
+            
+            <!-- Additional input fields -->
+            <div class="input-group">
+                <label for="joinedDate">Joined Date:</label>
+                <input type="date" id="joinedDate" name="joinedDate" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="disease">Disease:</label>
+                <input type="text" id="disease" name="disease" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="diagnosis">Diagnosis:</label>
+                <input type="text" id="diagnosis" name="diagnosis" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="treatment">Treatment:</label>
+                <input type="text" id="treatment" name="treatment" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="roomCharges">Room Charges:</label>
+                <input type="number" id="roomCharges" name="roomCharges" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="medicineBill">Medicine Bill:</label>
+                <input type="number" id="medicineBill" name="medicineBill" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="documentPath">Document Path:</label>
+                <input type="text" id="documentPath" name="documentPath" required>
+            </div>
+        </section>
+
+        <section id="documentUpload" class="form-section">
+            <h2>Upload Documents</h2>
+            <div id="documentFields">
+                <!-- Dynamic document rows will be added here -->
+            </div>
+            <button type="button" id="addDocumentButton">Add Document</button>
+        </section>
+        <div align="center">
+            <button type="submit">Submit Claim</button>
+        </div>
+    </form>
+</main>
+
+<footer>
+    &copy; 2023 Future Safe
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const documentFields = document.getElementById("documentFields");
+        const addDocumentButton = document.getElementById("addDocumentButton");
+
+        addDocumentButton.addEventListener("click", function () {
+            const documentRow = createDocumentRow();
+            documentFields.appendChild(documentRow);
         });
-    </script>
+
+        function createDocumentRow() {
+            const documentRow = document.createElement("div");
+            documentRow.classList.add("document-row");
+
+            const documentNameInput = document.createElement("input");
+            documentNameInput.type = "text";
+            documentNameInput.name = "documentName";
+            documentNameInput.placeholder = "Document Name";
+            documentNameInput.required = true;
+
+            const documentAmountInput = document.createElement("input");
+            documentAmountInput.type = "number";
+            documentAmountInput.name = "documentAmount";
+            documentAmountInput.placeholder = "Amount";
+            documentAmountInput.required = true;
+
+            const documentFileInput = document.createElement("input");
+            documentFileInput.type = "file";
+            documentFileInput.name = "documentFile";
+            documentFileInput.accept = ".pdf, .jpg, .png";
+            documentFileInput.required = true;
+
+            const removeDocumentButton = document.createElement("button");
+            removeDocumentButton.type = "button";
+            removeDocumentButton.classList.add("remove-document-button");
+            removeDocumentButton.textContent = "Remove";
+            removeDocumentButton.addEventListener("click", function () {
+                documentFields.removeChild(documentRow);
+            });
+
+            documentRow.appendChild(documentNameInput);
+            documentRow.appendChild(documentAmountInput);
+            documentRow.appendChild(documentFileInput);
+            documentRow.appendChild(removeDocumentButton);
+
+            return documentRow;
+        }
+    });
+</script>
 </body>
 </html>

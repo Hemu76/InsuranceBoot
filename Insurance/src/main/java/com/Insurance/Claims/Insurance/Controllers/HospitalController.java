@@ -124,12 +124,11 @@ public class HospitalController {
 		irip.addClaim(claim.getClamIplcId());
 		Claim clm_id = irip.getClaimByid(claim.getClamIplcId());
 		int cid = clm_id.getClamId();
-		Path directoryPath = Paths.get("C:\\Users\\hemusai.v\\Desktop\\Hemu"); // Replace with your desired directory
-																				// path
+		Path directoryPath = Paths.get("C:\\Users\\hemusai.v\\Desktop\\Hemu");
 		try {
 			Files.createDirectories(directoryPath);
 		} catch (IOException e) {
-			// Handle any exceptions related to directory creation
+
 			e.printStackTrace();
 		}
 		for (MultipartFile f : file) {
